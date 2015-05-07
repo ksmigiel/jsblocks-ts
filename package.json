@@ -1,0 +1,13 @@
+{
+  "name": "jsblocks-ts",
+  "version": "0.0.1",
+  "description": "TypeScript definitions for jsblocks framework.",
+  "private": true,
+  "author": "Krzysztof Śmigiel",
+  "devDependencies": {
+    "typescript": "^1.5.0-beta"
+  },
+  "dependencies": {
+    "blocks": "^0.3.0"
+  }
+}
