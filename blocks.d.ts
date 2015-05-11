@@ -1,3 +1,8 @@
+// Type definitions for jsblocks v0.3.0
+// Project: http://jsblocks.com/
+// Definitions by: Krzysztof Śmigiel <https://github.com/ksmigiel>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
+
 /////////////////////////////////////////
 // blocks methods
 /////////////////////////////////////////
@@ -11,9 +16,13 @@ interface BlocksStatic {
 	 * uses document.body by default.
 	 * 
 	 * @param model The model that will be used to query the DOM.
+	 */
+	query(model: any): void;
+	/**
+	 * @param model The model that will be used to query the DOM.
 	 * @param element Optional element on which to execute the query.
 	 */
-	query(model: any, element?: HTMLElement): void;
+	query(model: any, element: HTMLElement): void;
 
 	/**
 	 * Copies properties from all provided objects into the first object parameter
@@ -27,7 +36,7 @@ interface BlocksStatic {
 	 * @param callback The callback that will be executed for each element in the collection
 	 * @param thisArg Optional this context for the callback
 	 */
-	each(collection: Object | any[], callback: (value: any, index: any, collection: any) => void, thisArg?: any): void;
+	each(collection: any, callback: (value: any, index: any, collection: any) => void, thisArg?: any): void;
 	
 	/**
 	 * Iterates over the collection from end to start
@@ -36,7 +45,7 @@ interface BlocksStatic {
 	 * @param callback The callback that will be executed for each element in the collection
 	 * @param thisArg Optional this context for the callback
 	 */
-	eachRight(collection: Object | any[], callback: (value: any, index: any, collection: any) => void, thisArg?: any): void;
+	eachRight(collection: any, callback: (value: any, index: any, collection: any) => void, thisArg?: any): void;
 	
 	/**
 	 * Determines if a value is an array.
@@ -96,17 +105,25 @@ interface BlocksStatic {
 	 * Converts an integer or string to a unit. If the value could not be parsed to a number it is not converted
 	 * 
 	 * @param value The value to be converted to the specified unit
+	 */
+	toUnit(value: any): any;
+	/**
+	 * @param value The value to be converted to the specified unit
 	 * @param unit Optionally provide a unit to convert to. Default value is 'px'
 	 */
-	toUnit(value: any, unit?: string): any;
+	toUnit(value: any, unit: string): any;
 	
 	/**
 	 * Clones value. If deepClone is set to true the value will be cloned recursively
 	 * 
 	 * @param value Value/object to be cloned
+	 */
+	clone(value: any): any;
+	/**
+	 * @param value Value/object to be cloned
 	 * @param deepClone By default false
 	 */
-	clone(value: any, deepClone?: boolean): any;
+	clone(value: any, deepClone: boolean): any;
 	
 	/**
    	 * Determines if the specified value is a HTML elements collection.
@@ -163,10 +180,14 @@ interface BlocksStatic {
 	 * 
 	 * @param a The first object to be campared
 	 * @param b The second object to be compared
-	 * @param deepEqual Determines if the equality check will recursively check all child properties
-	 * 
 	 */
-	equals(a: any, b: any, deepEqual?: boolean): boolean;
+	equals(a: any, b: any): boolean;
+	/**
+	 * @param a The first object to be campared
+	 * @param b The second object to be compared
+	 * @param deepEqual Determines if the equality check will recursively check all child properties
+	 */
+	equals(a: any, b: any, deepEqual: boolean): boolean;
 	
 	/**
 	 * Gets the context for a particular element. Searches all parents until it finds the context.
@@ -204,6 +225,15 @@ interface BlocksStatic {
 
 	range(start: number, end: number): BlocksStatic;
 
+	/**
+	 * Creates the server which will automatically handle server-side rendering.
+	 */
+	server(): { express() };
+	/**
+	 * @param options Overrides default jsblocks options
+	 */
+	server(options: Server): { express() };
+	
 	/**
 	* Make observable property. You can specify initial value in parentheses.
 	*/
@@ -255,10 +285,14 @@ interface BlocksArray extends BlocksObservable {
 	 * If the method is called without arguments and jsvalue framework is included the observable will be
 	 * extended with the methods available in jsvalue for the current type.
 	 * 
+	 * @param options Optional options
+	 */
+	extend(...options): BlocksArray;
+	/**
 	 * @param name Name of the extender
 	 * @param options Optional options
 	 */
-	extend(name?: string, ...options): BlocksArray;
+	extend(name: string, ...options): BlocksArray;
 
 	/**
 	 * Removes all items from the collection and replaces them with the new value provided.
@@ -272,17 +306,25 @@ interface BlocksArray extends BlocksObservable {
 	 * Adds values to the end of the observable array
 	 * 
 	 * @param value The values that will be added to the end of the array
+	 */
+	add(value: any): BlocksArray;
+	/**
+	 * @param value The values that will be added to the end of the array
 	 * @param index Optional index specifying where to insert the value
 	 */
-	add(value: any, index?: number): BlocksArray;
+	add(value: any, index: number): BlocksArray;
 	
 	/**
 	 * Adds the values from the provided array(s) to the end of the collection
 	 * 
 	 * @param value The array that will be added to the end of the array
+	 */
+	addMany(value: any[]): BlocksArray;
+	/**
+	 * @param value The array that will be added to the end of the array
 	 * @param index Optional position where the array of values to be inserted
 	 */
-	addMany(value: any[], index?: number): BlocksArray;
+	addMany(value: any[], index: number): BlocksArray;
 
 	/**
 	 * Swaps two values in the observable array. Note: Faster than removing the items and adding them at the locations
@@ -304,25 +346,39 @@ interface BlocksArray extends BlocksObservable {
 	 * Removes an item from the observable array
 	 * 
 	 * @param value The value that will be removed or a callback function which returns true or false to determine if the value should be removed
+	 */
+	remove(value: any): BlocksArray;
+	/**
+	 * @param value The value that will be removed or a callback function which returns true or false to determine if the value should be removed
 	 * @param thisArg Optional this context for the callback
 	 */
-	remove(value: any|Function, thisArg?: Function): BlocksArray;
+	remove(value: any, thisArg: Function): BlocksArray;
 	
 	/**
 	 * Removes an item at the specified index
 	 * 
 	 * @param index The index location of the item that will be removed
+	 */
+	removeAt(index: number): BlocksArray;
+	/**
+	 * @param index The index location of the item that will be removed
 	 * @param count Optional parameter that if specified will remove the next items starting from the specified index
 	 */
-	removeAt(index: number, count?: number): BlocksArray;
+	removeAt(index: number, count: number): BlocksArray;
 
 	/**
 	 * Removes all items from the observable array and optionally filter which items to be removed by providing a callback
-	 * 
+	 */
+	removeAll(): BlocksArray;
+	/**
+	 * @param callback Optional callback function which filters which items to be removed. Returning a truthy value will remove the item and vice versa
+	 */
+	removeAll(callback: Function): BlocksArray;
+	/**
 	 * @param callback Optional callback function which filters which items to be removed. Returning a truthy value will remove the item and vice versa
 	 * @param thisArg Optional this context for the callback function
 	 */
-	removeAll(callback?: Function, thisArg?: any): BlocksArray;
+	removeAll(callback: Function, thisArg: any): BlocksArray;
 	
 	/**
 	 * The concat() method is used to join two or more arrays
@@ -335,17 +391,23 @@ interface BlocksArray extends BlocksObservable {
 	 * The slice() method returns the selected elements in an array, as a new array object
 	 * 
 	 * @param start An integer that specifies where to start the selection (The first element has an index of 0)
+	 */
+	slice(start: number): any[];
+	/**
+	 * @param start An integer that specifies where to start the selection (The first element has an index of 0)
 	 * @param end An integer that specifies where to end the selection. If omitted, all elements from the start position and to the end of the array will be selected.
 	 *            Use negative numbers to select from the end of an array
 	 */
-	slice(start: number, end?: number): any[];
+	slice(start: number, end: number): any[];
 
 	/**
 	 * The join() method joins the elements of an array into a string, and returns the string
-	 * 
+	 */
+	join(): string;
+	/**
 	 * @param separator The separator to be used. If omitted, the elements are separated with a comma
 	 */
-	join(seperator?: string): string;
+	join(seperator: string): string;
 	
 	/**
 	 * The pop() method removes the last element of a observable array, and returns that element
@@ -371,10 +433,12 @@ interface BlocksArray extends BlocksObservable {
 	
 	/**
 	 * Sorts the elements of an array
-	 * 
+	 */
+	sort(): any[];
+	/**
 	 * @param sortfunction A function that defines the sort order
 	 */
-	sort(sortfunction?: Function): any[];
+	sort(sortfunction: Function): any[];
 	
 	/**
 	 * Adds and/or removes elements from the observable array
@@ -402,15 +466,16 @@ interface App extends Extendable<App> {
 	
 	/**
 	 * Creates an application property for a Model.
-	 * 
+	 */
+	Property(): any;
+	/**
 	 * @param options Configuration options for property
 	 */
-	Property(options?: PropertyPrototype): any;
+	Property(options: PropertyPrototype): any;
 	
 	/**
 	 * Defines a view that will be part of the Application.
 	 * 
-	 * @param parentViewName Provide this parameter only if you are creating nested views. This is the name of the parent View
 	 * @param name The name of the View you are creating
 	 * @param prototype The object that will represent the View
 	 */
@@ -422,7 +487,7 @@ interface App extends Extendable<App> {
 	 * @param name The name of the View you are creating
 	 * @param prototype The object that will represent the View
 	 */
-	View(parentViewName?: string, name?: string, prototype?: ViewPrototype): any;
+	View(parentViewName: string, name: string, prototype: ViewPrototype): any;
 	
 	/**
 	 * Creates a new Model
@@ -511,7 +576,7 @@ interface ViewPrototype {
 	ready?: Function;
 
 	options?: {
-		route: string | any,
+		route: any,
 		url: string
 	};
 }
@@ -525,10 +590,12 @@ interface Model {
 	
 	/**
 	 * Fires a request to the server to populate the Model based on the read URL specified
-	 * 
+	 */
+	read(): Model;
+	/**
 	 * @param params The parameters Object that will be used to populate the Model from the specified options.read URL. If the URL does not contain parameters
 	 */
-	read(params?: Object): Model;
+	read(params: Object): Model;
 	
 	/**
 	 * Synchronizes the changes with the server by sending requests to the provided URL's
@@ -568,12 +635,12 @@ interface ModelPrototype {
 	isNew?(): boolean;
 
 	options?: {
-		idAttr: string,
-		baseUrl: string,
-		read: { url: string },
-		create: { url: string },
-		destroy: { url: string },
-		update: { url: string },
+		idAttr?: string,
+		baseUrl?: string,
+		read?: { url?: string },
+		create?: { url?: string },
+		destroy?: { url?: string },
+		update?: { url?: string },
 	};
 }
 
@@ -586,10 +653,12 @@ interface Collection extends Extendable<Collection> {
 	
 	/**
 	 * Fires a request to the server to populate the Model based on the read URL specified
-	 * 
+	 */
+	read(): Collection;
+	/**
 	 * @param params The parameters Object that will be used to populate the Collection from the specified options.read URL. If the URL does not contain parameters
 	 */
-	read(params?: Object): Collection;
+	read(params: Object): Collection;
 	
 	/**
 	 * Clear all changes made to the collection
@@ -625,6 +694,32 @@ interface Extendable<T> {
 	 */
 	extend(name?: string, ...options): T;
 	extend(any): T;
+}
+
+interface Server {
+	
+	/**
+	 * The port at which your application will be run
+	 */
+	port?: number,
+	
+	/**
+	 * The folder where your application files like .html, .js and .css are going to be.
+     * The value is passed to express.static() middleware.
+	 */
+	static?: string,
+	
+	/**
+	 * Caches pages result instead of executing them each time.
+     * Disabling cache could impact performance.
+	 */
+	cache?: boolean,
+	
+	/**
+	 * Provide an express middleware function or an array of middleware functions.
+	 * Use: [compression(), bodyParser()]
+	 */
+	use?: any,
 }
 
 declare var blocks: BlocksStatic;
