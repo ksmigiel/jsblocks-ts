@@ -576,8 +576,8 @@ interface ViewPrototype {
 	ready?: Function;
 
 	options?: {
-		route: any,
-		url: string
+		route?: any,
+		url?: string
 	};
 }
 
@@ -587,6 +587,7 @@ interface ViewPrototype {
 
 interface Model {
 	(): Model;
+	(props: Object): Model;
 	
 	/**
 	 * Fires a request to the server to populate the Model based on the read URL specified
@@ -650,6 +651,7 @@ interface ModelPrototype {
 
 interface Collection extends Extendable<Collection> {
 	(): Collection;
+	(props: Object[]): Collection;
 	
 	/**
 	 * Fires a request to the server to populate the Model based on the read URL specified
